@@ -5,11 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  color: #fff;
+  background: #3d5063;
 }
 
 .user-avatar {
@@ -17,63 +14,68 @@ code {
   height: 100px;
   border: 0px solid transparent;
   border-radius: 50%;
-  margin-left: 60%;
   margin-top: 1%;
   margin-bottom: 1%;
+  margin-left: 47%;
 }
 
-.building-item>img {
-  width: 150px;
-  margin-top: 2%;
-  margin-left: 2%;
-  height: 100px;
-  padding-right: 2%;
+.building-item {
+  background: #3d5063;
+  color: '#fff';
+}
+
+.building-item:hover {
+  background: #fff;
+  color: #3d5063;
 }
 
 .building-item>div {
   display: inline-block;
-  border-right: 1px solid gray;
   max-width: 200px;
   height: 100px;
+  margin-right: 2.5%;
   text-align: center;
-}
-
-.building-item>div:first-child {
-  border-left: 1px solid gray;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 5%;
 }
 
 .building-img {
   display: inline-block;
-  border-right: 1px solid gray;
-  max-width: 200px;
+  width: 150px;
   height: 100px;
+  margin-left: 2%;
+  margin-bottom: 2%;
 }
 
-.building-item {
-  margin-left: 2%;
+.btn-action {
+  margin-top: 9%;
+}
+
+.building-item:first-child {
+  margin-top: 3%;
 }
 
 .table-header-item {
   display: inline-block;
   margin-top: 2%;
-  border: 1px solid gray;
   max-width: 200px;
   height: 50px;
   text-align: center;
-
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 .table-header-item:first-child {
   margin-left: 2%;
-}
+} 
 
 .box {
   width: 300px;
   margin: 20px auto;
-  background: #00bfb6;
+  background: #3d5063;
   padding: 20px;
   text-align: center;
-  font-weight: 900;
   color: #fff;
   font-family: arial;
   position: relative;
@@ -86,8 +88,8 @@ code {
   height: 0px;
   position: absolute;
   border-left: 10px solid transparent;
-  border-right: 10px solid #00bfb6;
-  border-top: 10px solid #00bfb6;
+  border-right: 10px solid #3d5063;
+  border-top: 10px solid #3d5063;
   border-bottom: 10px solid transparent;
   right: 50px;
   bottom: -19px;
@@ -95,23 +97,20 @@ code {
 
 .header-title {
   display: inline-block;
-  margin-left: 2%;
+  margin-left: 5.5%;
 }
 
 .header {
-  background: #00bfb6;
-  max-width: 50%;
+  background: #3d5063;
   color: #fff;
 }
 
-.btn {
-  margin-left: 1%!important;
-  margin-top: 0.5%!important;
+.main-btn {
+  margin-top: 2%;
 }
 
 .footer {
-  background: #00bfb6;
-  max-width: 50%;
+  background: #3d5063;
   font-size: 24px;
   text-align: left;
 }
@@ -119,12 +118,44 @@ code {
 .footer>a {
   color: #fff;
   text-decoration: none;
-  margin: 5% 0 5% 2%;
+  margin: 3.5% 0 3.5% 5.5%;
   display: inline-block;
 }
 
 .footer>a:hover {
   color: rgb(255, 240, 25);
+}
+
+.btn-primary {
+  background: gold;
+  border: 1px solid gold;
+}
+
+.btn-primary:hover {
+  background: #E3BF06;
+  border: 1px solid #E3BF06;
+}
+
+.btn-primary:focus {
+  background: #E3BF06;
+  border: 1px solid #E3BF06;
+  box-shadow: 0 0 0 0.25rem rgba(255, 242, 0, 0.50)
+}
+
+.btn-add {
+  background: #12BB12;
+  border: 1px solid #12BB12;
+}
+
+.btn-add:hover {
+  background: #11A611;
+  border: 1px solid #11A611;
+}
+
+.btn-add:focus {
+  background: #10C810;
+  border: 1px solid #10C810;
+  box-shadow: 0 0 0 0.25rem rgba(29, 217, 17, 0.50)
 }
 
 .btn-del-all {
@@ -143,24 +174,60 @@ code {
 
 .footer-title {
   display: inline-block;
-  margin-left: 50%; 
-  color: #fff;
 }
 
 .add-form {
-  background: rgb(231, 119, 14);
+  background: gold;
   width: 500px;
   height: 500px;
   border: 0px solid transparent;
   border-radius: 5%;
+  overflow: auto;
 }
 
 .add-form>label {
+  color: #3d5063;
+  display: block;
+  margin-left: 15%;
+  padding-top: 10%;
+  width: 75px;
+}
+
+.add-form>label>input {
+  border: 1px solid transparent;
+  border-radius: 1%;
+  width: 250px;
+  padding-top: 6%;
+}
+
+.update-form {
+  background: #4CAF50;
+  width: 500px;
+  height: 500px;
+  border: 0px solid transparent;
+  border-radius: 5%;
+  overflow: auto;
+}
+
+.update-form>label {
   color: #fff;
   display: block;
   margin-left: 15%;
   padding-top: 10%;
-  width: 50px;
+  width: 75px;
+}
+
+.update-form>label>input {
+  border: 1px solid transparent;
+  border-radius: 1%;
+  width: 250px;
+  padding-top: 6%;
+}
+
+.btn-add-form {
+  margin-left: 70%;
+  margin-top: 5%;
+  width: 100px;
 }
 
 .blurred {
@@ -179,14 +246,25 @@ code {
 
 .description {
   max-width: 20%;
-  margin: 2% 15% 6%;
+  max-width: 50%;
+  margin-top: 2%;
+  margin-bottom: 10%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .buildings-title {
   font-size: 60px;
-  margin-left: 20%;
   text-decoration: none;
-  color: #00bfb6;
+  color: #fff;
+}
+
+.title-screen {
+  text-align: center;
+}
+
+.buildings-title:hover {
+  color:gold;
 }
 
 h1 {
@@ -194,24 +272,103 @@ h1 {
   margin-left: 17%;
 }
 
-/* Desktop screen */
+.building-actions {
+  margin-left: 7%!important;
+  width: 135px!important;
+  padding-top: 20px!important;
+  height: 60%!important;
+  position: absolute!important;
+}
+
+/* Medium desktop screen */
 @media only screen and (max-width: 2000px) and (min-width: 1501px) {
   .header {
-    max-width: 65%;
+     margin-top: 1%;
   }
 
-  .footer {
-    max-width: 65%;
+  .table-header-item {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  .building-actions {
+    padding-top: 15px!important;
+  }
+
+  .building-item>div {
+    margin-left: 3%;
+    margin-right: 3%;
+    padding-top: 3%;
+  }
+
+  .building-item>div:first-child {
+    margin-left: 2%;
+  }
+
+  .building-item:first-child {
+    margin-top: 1%;
+  }
+
+  .building-img {
+    margin-left: 4.5%;
+    margin-right: 2%;
+  }
+
+  .user-avatar {
+    margin-left: 60%;
+  }
+
+  .footer-title {
+    margin-left: 42%;
+  }
+}
+
+/* Large desktop screen */
+@media only screen and (min-width: 2001px) {
+  .header {
+     margin-top: 1%;
+  }
+
+  .building-actions {
+    padding-top: 15px!important;
+  }
+
+  .table-header-item {
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+
+  .building-item>div {
+    margin-left: 4%;
+    margin-right: 4%;
+    padding-top: 2%;
+  }
+
+  .building-item>div:first-child {
+    margin-left: 2%;
+  }
+
+  .building-item:first-child {
+    margin-top: 1%;
+  }
+
+  .building-img {
+    margin-left: 5%;
+    margin-right: 3.5%;
+  }
+
+  .user-avatar {
+    margin-left: 65%;
+  }
+
+  .footer-title {
+    margin-left: 50%;
   }
 }
 
 /* Laptop screen */
 @media only screen and (max-width: 1500px) and (min-width: 1000px) {
-  .header {
-    max-width: 100%;
-  }
-
-  .footer {
-    max-width: 100%;
+  .building-item>div:first-child {
+    padding-left: 2%;
   }
 }

@@ -6,7 +6,7 @@ let Footer = () => {
             <Link to='/' className='col-lg-1 col-md-2'>Home</Link>
             <Link to='/buildings' className='col-lg-1 col-md-2'>Buildings</Link>
 
-            <h3 className='footer-title'>Welcome to Building Builder</h3>
+            <h3 className='footer-title offset-lg-4'>Welcome to Building Builder</h3>
         </div>
     )
 }

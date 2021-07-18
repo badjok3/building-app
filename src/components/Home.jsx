@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 let Home = () => {
     return (
-        <div>
+        <div className='title-screen'>
             <Link to='/buildings' className='buildings-title' alt='Buildings Title' title='Buildings'>Buildings</Link>
             <p alt='description' className='description'>
                 Welcome to my hand-built buildings application, which is built to build buildings logs.

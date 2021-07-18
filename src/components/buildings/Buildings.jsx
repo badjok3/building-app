@@ -2,6 +2,9 @@ import { isUndefined } from 'lodash';
 import React, { Component } from 'react';
 import Popup from 'reactjs-popup';
 
+import { NotificationContainer } from 'react-notifications';
+import createNotification from '../services/NotificationService';
+
 import Header from '../common/Header';
 import BuildingRow from './BuildingRow';
 
@@ -33,18 +36,42 @@ class Buildings extends Component {
                     image: '/3.jpg'
                 }
             ]
-        }
+        };
+    }
+
+    updateField = (e, inputType, id) => {
+        if (isUndefined(e.target.value)) return;
+
+        let currentBuildings = this.state.buildings.slice();
+        currentBuildings.map(b => {
+            if (!b.hasSnapshot) {
+                b.buildingSnapshot = this.state.buildings.find(b => b.id === id);
+                b.hasSnapshot = true;
+            }
+
+            if (b.id === id) {
+                b[inputType] = inputType === "image" ?  `/${e.target.value || Math.ceil(Math.random() * 3)}.jpg` : e.target.value;
+            }
+            return b;
+        });
+        
+        this.setState({buildings: currentBuildings});
     }
 
     deleteBuilding = (buildingId) => {
         let currentBuildings = this.state.buildings.slice();
-
         currentBuildings = currentBuildings.filter(b => b.id !== buildingId);
+        
         this.setState({buildings: currentBuildings});
     }
 
-    addBuilding = () => {
+    updateBuilding = (e) => {
+        e.preventDefault();
+        this.hasSnapshot = false;
+        this.buildingSnapshot = {};
+    }
 
+    addBuilding = () => {
         let currentBuildings = this.state.buildings.slice(),
         id;
         
@@ -70,53 +97,57 @@ class Buildings extends Component {
         this.setState({buildings: currentBuildings});
     }
 
-    updateBuilding = (e, inputType, id) => {
-        let currentBuildings = this.state.buildings.filter(b => b.id !== id);
-        let building = this.state.buildings.find(b => b.id === id);
-
-        building[inputType] = inputType === "image" ?  `/${e.target.value || Math.ceil(Math.random() * 3)}.jpg` : e.target.value;
-        currentBuildings.push(building);
-        currentBuildings.sort((a, b) => a.id > b.id);
-
-        this.setState({buildings: currentBuildings});
-    }
-
     deleteAll = () => {
-        let ghostTown = [];
+        if (this.state.buildings.length === 0) {
+            createNotification('error', 'Buildings list is already empty!');
+            return;
+        }
 
+        let ghostTown = [];
+        
+        createNotification('warning', 'All buildings have been deleted!');
         this.setState({buildings: ghostTown});
     }
 
-
     render() {
+        let style = {
+            marginRight: '0',
+            background: '#3d5063'
+        };
+
+        let boldStyle = {
+            ...style,
+            fontWeight: "bolder"
+        };
+
+        let actionStyle = {
+            ...style,
+            marginBottom: '3%'
+        };
+
         return (
             <div>
                 <Header />
-                <div className='table-header-row col-lg-12 col-md-12'>
-                    <div className='table-header-item col-lg-2 col-md-2'>Id</div>
-                    <div className='table-header-item col-lg-2 col-md-2'>Name</div>
-                    <div className='table-header-item col-lg-2 col-md-2'>Area</div>
-                    <div className='table-header-item col-lg-2 col-md-2'>Location</div>
-                    <div className='table-header-item col-lg-2 col-md-2'>Image</div>
+                <div className='row no-wrap' style={actionStyle}>
 
-                    <Popup trigger={<button className='btn btn-primary'>Add</button>}
+                <Popup trigger={<button className='btn btn-primary btn-add main-btn col-lg-2 offset-lg-3'>Add</button>}
                         position="left center"
                         modal
                         nested
                         onOpen={() => document.getElementById('root').style = 'filter: blur(2px);'}
                         onClose={() => document.getElementById('root').style = ''}>
-                        {close => (<form className='add-form' onSubmit={() => { this.addBuilding(); close(); }}>
+                        {close => (<form className='add-form' onSubmit={() => { this.addBuilding(); createNotification('success', 'Building added successfully!'); close(); }}>
                                 <label>
-                                    Name:
-                                <input type="text" required name='name' />
+                                    Name* :
+                                    <input type="text" required name='name' />
                                 </label>
                                 <label>
-                                    Area:
-                                <input type="text" required name='area' />
+                                    Area* :
+                                    <input type="text" required name='area' />
                                 </label>
                                 <label>
                                     Location:
-                                <input type="text" name='location' />
+                                    <input type="text" name='location' />
                                 </label>
                                 <label>
                                 <span className='box sb4'>Enter either '1', '2' or '3'. <br /> If left blank, an image will be automatically assigned.</span>
@@ -127,12 +158,12 @@ class Buildings extends Component {
                                     name='image' />
                                 </label>
 
-                                <button className='btn btn-primary form-add-btn' type='submit'>Add</button>
+                                <button className='btn btn-primary btn-add btn-add-form' type='submit'>Add</button>
                             </form>
                         )}
                     </Popup>
 
-                    <Popup trigger={<button className='btn btn-danger'>Delete All</button>}
+                    <Popup trigger={<button className='btn btn-danger main-btn col-lg-2 offset-lg-2'>Delete All</button>}
                         position="left center"
                         modal
                         nested
@@ -146,20 +177,35 @@ class Buildings extends Component {
                                 </span>
                             )}
                     </Popup>
+                    </div>
 
-                    {this.state.buildings.map((building, index) => {
-                        return <BuildingRow
-                            key={index}
-                            id={building.id}
-                            name={building.name}
-                            area={building.area}
-                            location={building.location} 
-                            image={building.image}
-                            deleteBuilding={(e) => this.deleteBuilding(e)}
-                            updateBuilding={(e, inputType, id) => this.updateBuilding(e, inputType, id)}
-                        />
-                    })}
-                </div>
+                    <div className='row' style={boldStyle}>
+                        <div className='table-header-item offset-lg-1 col-lg-1 col-md-2'>ID</div>
+                        <div className='table-header-item col-lg-2 col-md-2'>NAME</div>
+                        <div className='table-header-item col-lg-1 col-md-2'>AREA</div>
+                        <div className='table-header-item col-lg-2 col-md-2'>LOCATIONS</div>
+                        <div className='table-header-item col-lg-2 col-md-2'>IMAGE</div>
+                        <div className='table-header-item col-lg-2 col-md-2'>ACTIONS</div>
+                    </div>
+
+                    <div className='row' style={style}>
+                        {this.state.buildings.map((building, index) => {
+                            return <BuildingRow
+                                key={building.id}
+                                row={index}
+                                id={building.id}
+                                name={building.name}
+                                area={building.area}
+                                location={building.location} 
+                                image={building.image}
+                                deleteBuilding={(id) => this.deleteBuilding(id)}
+                                updateField={(e, inputType, id) => this.updateField(e, inputType, id)}
+                                updateBuilding={(e) => this.updateBuilding(e)}
+                            />
+                        })}
+                    </div>
+                
+                <NotificationContainer/>
             </div>
         );
     }
