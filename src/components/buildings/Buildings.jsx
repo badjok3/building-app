@@ -128,83 +128,84 @@ class Buildings extends Component {
         return (
             <div>
                 <Header />
-                <div className='row no-wrap' style={actionStyle}>
-
-                <Popup trigger={<button className='btn btn-primary btn-add main-btn col-lg-2 offset-lg-3'>Add</button>}
-                        position="left center"
-                        modal
-                        nested
-                        onOpen={() => document.getElementById('root').style = 'filter: blur(2px);'}
-                        onClose={() => document.getElementById('root').style = ''}>
-                        {close => (<form className='add-form' onSubmit={() => { this.addBuilding(); createNotification('success', 'Building added successfully!'); close(); }}>
-                                <label>
-                                    Name* :
-                                    <input type="text" required name='name' />
-                                </label>
-                                <label>
-                                    Area* :
-                                    <input type="text" required name='area' />
-                                </label>
-                                <label>
-                                    Location:
-                                    <input type="text" name='location' />
-                                </label>
-                                <label>
-                                <span className='box sb4'>Enter either '1', '2' or '3'. <br /> If left blank, an image will be automatically assigned.</span>
-                                    Image:
-                                <input type="text"
-                                    onFocus={() => document.getElementsByClassName('sb4')[0].style = 'display: flex;position: absolute;margin-top: -23%;margin-left: -10%;'} 
-                                    onBlur= {() => document.getElementsByClassName('sb4')[0].style = 'display:none'} 
-                                    name='image' />
-                                </label>
-
-                                <button className='btn btn-primary btn-add btn-add-form' type='submit'>Add</button>
-                            </form>
-                        )}
-                    </Popup>
-
-                    <Popup trigger={<button className='btn btn-danger main-btn col-lg-2 offset-lg-2'>Delete All</button>}
-                        position="left center"
-                        modal
-                        nested
-                        onOpen={() => document.getElementById('root').style = 'filter: blur(2px);'}
-                        onClose={() => document.getElementById('root').style = ''}>
-
-                            {close => (
-                                <span className='alert alert-danger'>Are you sure you want to delete all buildings?
-                                    <button className='btn btn-danger btn-del-all-confirm' onClick={() => { this.deleteAll(); close();}}>Yes, Delete All</button>
-                                    <button className='btn btn-secondary btn-del-all-deny' onClick={close}>No</button>
-                                </span>
-                            )}
-                    </Popup>
-                    </div>
-
-                    <div className='row' style={boldStyle}>
-                        <div className='table-header-item offset-lg-1 col-lg-1 col-md-2'>ID</div>
-                        <div className='table-header-item col-lg-2 col-md-2'>NAME</div>
-                        <div className='table-header-item col-lg-1 col-md-2'>AREA</div>
-                        <div className='table-header-item col-lg-2 col-md-2'>LOCATIONS</div>
-                        <div className='table-header-item col-lg-2 col-md-2'>IMAGE</div>
-                        <div className='table-header-item col-lg-2 col-md-2'>ACTIONS</div>
-                    </div>
-
-                    <div className='row' style={style}>
-                        {this.state.buildings.map((building, index) => {
-                            return <BuildingRow
-                                key={building.id}
-                                row={index}
-                                id={building.id}
-                                name={building.name}
-                                area={building.area}
-                                location={building.location} 
-                                image={building.image}
-                                deleteBuilding={(id) => this.deleteBuilding(id)}
-                                updateField={(e, inputType, id) => this.updateField(e, inputType, id)}
-                                updateBuilding={(e) => this.updateBuilding(e)}
-                            />
-                        })}
-                    </div>
                 
+                <div className='row mobile-actions' style={actionStyle}>
+                    <Popup trigger={<button className='btn btn-primary btn-add main-btn col-lg-2 offset-lg-3'>Add</button>}
+                            position="left center"
+                            modal
+                            nested
+                            onOpen={() => document.getElementById('root').style = 'filter: blur(2px);'}
+                            onClose={() => document.getElementById('root').style = ''}>
+                            {close => (<form className='add-form' onSubmit={() => { this.addBuilding(); createNotification('success', 'Building added successfully!'); close(); }}>
+                                    <label>
+                                        Name* :
+                                        <input type="text" required name='name' />
+                                    </label>
+                                    <label>
+                                        Area* :
+                                        <input type="text" required name='area' />
+                                    </label>
+                                    <label>
+                                        Location:
+                                        <input type="text" name='location' />
+                                    </label>
+                                    <label>
+                                    <span className='box sb4'>Enter either '1', '2' or '3'. <br /> If left blank, an image will be automatically assigned.</span>
+                                        Image:
+                                    <input type="text"
+                                        onFocus={() => document.getElementsByClassName('sb4')[0].style = 'display: flex;position: absolute;margin-top: -23%;margin-left: -10%;'} 
+                                        onBlur= {() => document.getElementsByClassName('sb4')[0].style = 'display:none'} 
+                                        name='image' />
+                                    </label>
+
+                                    <button className='btn btn-primary btn-add btn-add-form' type='submit'>Add</button>
+                                </form>
+                            )}
+                        </Popup>
+
+                        <Popup trigger={<button className='btn btn-danger main-btn col-lg-2 offset-lg-2'>Delete All</button>}
+                            position="left center"
+                            modal
+                            nested
+                            onOpen={() => document.getElementById('root').style = 'filter: blur(2px);'}
+                            onClose={() => document.getElementById('root').style = ''}>
+
+                                {close => (
+                                    <span className='alert alert-danger'>Are you sure you want to delete all buildings?
+                                        <button className='btn btn-danger btn-del-all-confirm' onClick={() => { this.deleteAll(); close();}}>Yes, Delete All</button>
+                                        <button className='btn btn-secondary btn-del-all-deny' onClick={close}>No</button>
+                                    </span>
+                                )}
+                        </Popup>
+                    </div>
+
+                    <div className='mobile-wrap'>
+                        <div className='row mobile-hide' style={boldStyle}>
+                            <div className='table-header-item offset-lg-1 col-lg-1 col-md-2'>ID</div>
+                            <div className='table-header-item col-lg-2 col-md-2'>NAME</div>
+                            <div className='table-header-item col-lg-1 col-md-2'>AREA</div>
+                            <div className='table-header-item col-lg-2 col-md-2'>LOCATIONS</div>
+                            <div className='table-header-item col-lg-2 col-md-2'>IMAGE</div>
+                            <div className='table-header-item col-lg-2 col-md-2'>ACTIONS</div>
+                        </div>
+
+                        <div className='row' style={style}>
+                            {this.state.buildings.map((building, index) => {
+                                return <BuildingRow
+                                    key={building.id}
+                                    row={index}
+                                    id={building.id}
+                                    name={building.name}
+                                    area={building.area}
+                                    location={building.location} 
+                                    image={building.image}
+                                    deleteBuilding={(id) => this.deleteBuilding(id)}
+                                    updateField={(e, inputType, id) => this.updateField(e, inputType, id)}
+                                    updateBuilding={(e) => this.updateBuilding(e)}
+                                />
+                            })}
+                        </div>
+                </div>
                 <NotificationContainer/>
             </div>
         );
